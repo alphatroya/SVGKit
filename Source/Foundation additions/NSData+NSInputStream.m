@@ -51,7 +51,6 @@
         }
     }
     @catch (NSException * exn) {
-        SVGKitLogWarn(@"[%@] WARNING: caught exception writing to file: %@", [self class], exn);
         result = nil;
         if (error) {
             *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:EIO userInfo:nil];

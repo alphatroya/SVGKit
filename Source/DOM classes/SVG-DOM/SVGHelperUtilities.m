@@ -114,9 +114,6 @@
 						
 						double ratioOfRatios = svgSVGElement.aspectRatioFromWidthPerHeight / svgSVGElement.aspectRatioFromViewBox;
 						
-						SVGKitLogWarn(@"ratioOfRatios = %.2f", ratioOfRatios );
-						SVGKitLogWarn(@"Experimental: auto-scaling viewbox transform to fulfil SVG spec's default MEET settings, because your SVG file has different aspect-ratios for viewBox and for svg.width,svg.height");
-						
 						/**
 						 For MEET, we have to SHRINK the viewbox's contents if they aren't as wide:high as the viewport:
 						 */
@@ -209,9 +206,7 @@
 						
 						scaleToViewBox = CGAffineTransformConcat( transformsThatHonourAspectRatioRequirements, scaleToViewBox );
 					}
-				}	
-				else
-					SVGKitLogWarn( @"Unsupported: preserveAspectRatio set to SLICE. Code to handle this doesn't exist yet.");
+				}
 				
 				transformSVGViewportToSVGViewBox = CGAffineTransformConcat( translateToViewBox, scaleToViewBox );
 			}
@@ -554,10 +549,6 @@
 	NSAssert( svgElement.rootOfCurrentDocumentFragment != nil, @"This SVG shape has a URL fill type; it needs to search for that URL (%@) inside its nearest-ancestor <SVG> node, but the rootOfCurrentDocumentFragment reference was nil (suggests the parser failed, or the SVG file is corrupt)", gradId );
 	
 	SVGGradientElement* svgGradient = (SVGGradientElement*) [svgElement.rootOfCurrentDocumentFragment getElementById:gradId];
-    if (svgGradient == nil) {
-        // SVG spec allows referenced gradient not exist and will use fallback color
-        SVGKitLogWarn(@"This SVG shape has a URL fill (%@), but could not find an XML Node with that ID inside the DOM tree (suggests the parser failed, or the SVG file is corrupt)", gradId );
-    }
 
 	[svgGradient synthesizeProperties];
 	
@@ -687,11 +678,6 @@
                 element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMAXYMID;
             else if( [aspectRatioCommand isEqualToString:@"xMaxYMax"])
                 element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMAXYMAX;
-            
-            else
-            {
-                SVGKitLogWarn(@"Found unexpected preserve-aspect-ratio command inside element's 'preserveAspectRatio' attribute. Command = '%@'", aspectRatioCommand );
-            }
         }
     }
 }

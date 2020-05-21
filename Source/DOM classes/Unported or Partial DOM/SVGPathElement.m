@@ -151,8 +151,6 @@
                                                                                     path:path
                                                                               relativeTo:CGPointZero
                                                                               isRelative:FALSE];
-                    } else  {
-                        SVGKitLogWarn(@"unsupported command %@", command);
                     }
                 }
             }

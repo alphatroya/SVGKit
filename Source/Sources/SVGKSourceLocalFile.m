@@ -74,7 +74,6 @@
     if( pathToFileInBundle == nil
        && pathToFileInDocumentsFolder == nil )
     {
-        SVGKitLogWarn(@"[%@] MISSING FILE (not found in App-bundle, not found in Documents folder), COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
         return nil;
     }
     
